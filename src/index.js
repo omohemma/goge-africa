@@ -3,11 +3,25 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {Provider} from 'react-redux';
+import {BrowserRouter} from "react-router-dom";
+import {store, persistor} from "./redux/store";
+import {PersistGate} from "redux-persist/integration/react";
+import {ThemeProvider} from "@emotion/react";
+import theme from "./theme";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <React.StrictMode>
+      <BrowserRouter>
+        <PersistGate persistor={persistor}>
+          <ThemeProvider theme={theme}>
+          <App/>
+          </ThemeProvider>
+        </PersistGate>
+      </BrowserRouter>
+    </React.StrictMode>
+  </Provider>,
   document.getElementById('root')
 );
 
